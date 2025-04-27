@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   plugins: [ vue() ],
   server: {
-    open: false,   // otomatis buka browser
+    open: false,
     port: 5173,
   }
 });

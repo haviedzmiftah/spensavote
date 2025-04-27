@@ -6,12 +6,7 @@
         "dev": "vite"
     },
     "devDependencies": {
-        "@tailwindcss/cli": "^4.1.4",
-        "@tailwindcss/postcss": "^4.1.4",
         "@vitejs/plugin-vue": "^5.2.3",
-        "autoprefixer": "^10.4.21",
-        "postcss": "^8.5.3",
-        "tailwindcss": "^4.1.4",
         "vite": "^6.3.3"
     },
     "name": "spensavote",
@@ -25,6 +20,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bootstrap": "^5.3.5",
         "vue-router": "^4.5.1"
     }
 }
