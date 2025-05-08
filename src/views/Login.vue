@@ -1,7 +1,7 @@
 <template>
   <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
-      <h2 class="text-center mb-4 text-primary fw-bold">Login Pemilih</h2>
+      <h2 class="text-center mb-4 text-primary fw-bold">Login Pemilih/Admin</h2>
       <form @submit.prevent="login">
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
@@ -30,44 +30,46 @@
         </button>
       </form>
     </div>
-    <div class="align-items-center m-2 small text-muted link-underline-opacity-0">
-      <a href="#" @click="Home">Home</a>
+    <div class="mt-2 small text-muted">
+      <a href="#" @click="goHome">Home</a>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
-const router = useRouter();
-const username = ref('');
-const password = ref('');
+const router = useRouter()
+const username = ref('')
+const password = ref('')
 
 async function login() {
-  axios.post('http://localhost:8000/login.php', {
-  username: username.value,
-  password: password.value,
-})
-.then(response => {
-  const res = response.data;
-  if (res.success) {
-    if (res.role === 'pemilih') {
-      router.push({ name: 'Vote' });
+  try {
+    const { data } = await axios.post('http://localhost:8000/login.php', {
+      username: username.value,
+      password: password.value,
+    })
+
+    if (data.success) {
+      if (data.role === 'admin') {
+        router.push({ name: 'AdminDashboard' })
+      } else if (data.role === 'pemilih') {
+        router.push({ name: 'Vote' })
+      } else {
+        alert('Role tidak dikenali.')
+      }
     } else {
-      alert('Login berhasil, tapi belum ada halaman admin.');
+      alert(data.message)
     }
-  } else {
-    alert(res.message || 'Login gagal.');
+  } catch (e) {
+    console.error(e)
+    alert('Terjadi kesalahan menghubungi server.')
   }
-})
-.catch(() => {
-  alert('Terjadi kesalahan menghubungi server.');
-});
 }
 
-function Home() {
-  router.push({ name: 'Landing' });
+function goHome() {
+  router.push({ name: 'Landing' })
 }
 </script>
