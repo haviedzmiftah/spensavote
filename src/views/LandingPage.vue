@@ -20,18 +20,14 @@
     </header>
 
     <!-- Footer -->
-    <footer class="bg-dark bg-opacity-25 text-center p-3 small mt-auto">
+    <footer class="bg-dark text-center p-3 small mt-auto">
       © 2025 SpensaVote. All rights reserved.
     </footer>
   </div>
 </template>
 
-<script setup>
-// Tidak ada logic tambahan
-</script>
-
 <style scoped>
-/* Untuk background gradasi mirip Tailwind */
+
 .bg-primary {
   background: linear-gradient(to bottom right, #3b82f6, #6366f1);
 }

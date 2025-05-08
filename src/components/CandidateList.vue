@@ -105,7 +105,7 @@ function chooseCandidate(cand) {
 }
 
 function logout() {
-  router.push({ name: 'Login' });
+  router.push({ name: 'Landing' });
 }
 </script>
 

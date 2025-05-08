@@ -1,5 +1,5 @@
 <template>
-  <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
       <h2 class="text-center mb-4 text-primary fw-bold">Login Pemilih</h2>
       <form @submit.prevent="login">
@@ -30,6 +30,9 @@
         </button>
       </form>
     </div>
+    <div class="align-items-center m-2 small text-muted link-underline-opacity-0">
+      <a href="#" @click="Home">Home</a>
+    </div>
   </div>
 </template>
 
@@ -48,5 +51,9 @@ function login() {
   } else {
     alert('Username atau password salah.');
   }
+}
+
+function Home() {
+  router.push({ name: 'Landing' });
 }
 </script>
