@@ -5,7 +5,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
 
 session_start();
-require_once '../config/db.php'; // koneksi database
+require_once 'db.php'; // koneksi database
 
 $data = json_decode(file_get_contents('php://input'), true);
 $username = $data['username'] ?? '';

@@ -46,29 +46,25 @@ const username = ref('');
 const password = ref('');
 
 async function login() {
-  try {
-    const response = await axios.post('http://localhost/spensavote-backend/router/login.php', {
-      username: username.value,
-      password: password.value
-    });
-
-    const result = response.data;
-
-    if (result.success) {
-      if (result.role === 'admin') {
-        router.push({ name: 'AdminDashboard' }); // Pastikan route ini kamu buat nanti
-      } else if (result.role === 'pemilih') {
-        router.push({ name: 'Vote' });
-      } else {
-        alert('Role tidak dikenali!');
-      }
+  axios.post('http://localhost:8000/login.php', {
+  username: username.value,
+  password: password.value,
+})
+.then(response => {
+  const res = response.data;
+  if (res.success) {
+    if (res.role === 'pemilih') {
+      router.push({ name: 'Vote' });
     } else {
-      alert(result.message);
+      alert('Login berhasil, tapi belum ada halaman admin.');
     }
-  } catch (error) {
-    console.error(error);
-    alert('Terjadi kesalahan saat menghubungi server.');
+  } else {
+    alert(res.message || 'Login gagal.');
   }
+})
+.catch(() => {
+  alert('Terjadi kesalahan menghubungi server.');
+});
 }
 
 function Home() {
