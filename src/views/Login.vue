@@ -39,17 +39,35 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const router = useRouter();
 const username = ref('');
 const password = ref('');
 
-function login() {
-  // TODO: Ganti dengan validasi backend
-  if (username.value === 'pemilih' && password.value === '1234') {
-    router.push({ name: 'Vote' });
-  } else {
-    alert('Username atau password salah.');
+async function login() {
+  try {
+    const response = await axios.post('http://localhost/spensavote-backend/router/login.php', {
+      username: username.value,
+      password: password.value
+    });
+
+    const result = response.data;
+
+    if (result.success) {
+      if (result.role === 'admin') {
+        router.push({ name: 'AdminDashboard' }); // Pastikan route ini kamu buat nanti
+      } else if (result.role === 'pemilih') {
+        router.push({ name: 'Vote' });
+      } else {
+        alert('Role tidak dikenali!');
+      }
+    } else {
+      alert(result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Terjadi kesalahan saat menghubungi server.');
   }
 }
 

@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db = 'spensavote';
 $user = 'root';
-$pass = ''; // atau sesuaikan jika ada password
+$pass = 'rahasia';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
